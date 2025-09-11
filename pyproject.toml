@@ -1,7 +1,7 @@
 #https://hatch.pypa.io/latest/config/build/
 
 [project]
-name = "tutor-indigo"
+name = "tutor-indigo-wikilearn"
 description = "Indigo theme plugin for Tutor"
 readme = { file = "README.rst", content-type = "text/x-rst" }
 license = { text = "AGPLv3" }
@@ -41,12 +41,12 @@ dev = [
 indigo = "tutorindigo.plugin"
 
 [project.urls]
-Code = "https://github.com/overhangio/tutor-indigo"
+Code = "https://github.com/overhangio/tutor-indigo-wikilearn"
 Community = "https://discuss.openedx.org"
 Documentation = "https://docs.tutor.edly.io/"
-Homepage = "https://github.com/overhangio/tutor-indigo"
-Changelog = "https://github.com/overhangio/tutor-indigo/blob/release/CHANGELOG.md"
-Issues = "https://github.com/overhangio/tutor-indigo/issues"
+Homepage = "https://github.com/overhangio/tutor-indigo-wikilearn"
+Changelog = "https://github.com/overhangio/tutor-indigo-wikilearn/blob/release/CHANGELOG.md"
+Issues = "https://github.com/overhangio/tutor-indigo-wikilearn/issues"
 
 # hatch related configurations
 [build-system]
