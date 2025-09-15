@@ -26,7 +26,7 @@ The Indigo theme will be automatically enabled if you have not previously define
 Configuration
 -------------
 
-- ``INDIGO_WELCOME_MESSAGE`` (default: "The place for all your online learning")
+- ``INDIGO_WELCOME_MESSAGE`` (default: "Unlock The World’s Knowledge")
 - ``INDIGO_PRIMARY_COLOR`` (default: "#3b85ff")
 - ``INDIGO_FOOTER_NAV_LINKS`` (default: ``[{"title": "About", "url": "/about"}, {"title": "Contact", "url": "/contact"}]``)
 - ``INDIGO_ENABLE_DARK_TOGGLE`` (default: True)

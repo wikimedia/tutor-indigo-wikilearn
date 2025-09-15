@@ -1721,3 +1721,9 @@ body.indigo-dark-theme {
 @import '../../../views/teams';
 @import '../../../views/wiki';
 @import '../../../courseware/responsive-nav';
+// wikimedia imports
+@import '../../../base/mixins-breakpoints';
+@import '../../../base/spinner';
+@import '../../../base/mixins';
+@import '../../../base/reset';
+@import '../../../features/landing';
