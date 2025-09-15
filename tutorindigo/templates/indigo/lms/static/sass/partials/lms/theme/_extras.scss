@@ -1722,8 +1722,20 @@ body.indigo-dark-theme {
 @import '../../../views/wiki';
 @import '../../../courseware/responsive-nav';
 // wikimedia imports
+@import 'custom-fonts.scss';
+
 @import '../../../base/mixins-breakpoints';
 @import '../../../base/spinner';
 @import '../../../base/mixins';
 @import '../../../base/reset';
+
 @import '../../../features/landing';
+@import '../../../features/messenger';
+@import '../../../features/discussion';
+@import '../../../features/progress-page';
+@import '../../../features/catalog';
+
+@import '../../../components/header';
+@import '../../../components/footer';
+@import '../../../components/course';
+@import "../../../components/refine-sidebar"
