@@ -1,0 +1,73 @@
+// Include custom Styles for the Wikimedia theme
+
+header {
+  &.global-header {
+    position: sticky;
+
+    .nav-links {
+      width: auto;
+
+      .secondary {
+        margin-top: 0;
+      }
+
+      .main {
+        a,
+        a.active,
+        .nav-tab a,
+        .nav-tab a.active {
+          border-bottom-width: 4px;
+          padding-bottom: 18px;
+
+          &:hover {
+            border-bottom-width: 4px;
+          }
+        }
+      }
+    }
+
+    .header-logo {
+      a {
+        margin: 14px 0 0 9px;
+
+        .logo {
+          height: 36px;
+
+          .indigo-dark-theme & {
+            filter: invert(1);
+          }
+        }
+      }
+    }
+  }
+}
+
+.settings-language-form {
+  float: none;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  box-sizing: border-box;
+}
+
+.main-banner {
+  margin-top: 0;
+  .banner-container {
+
+    .image-block {
+      margin-top: 0;
+    }
+  }
+}
+
+.window-wrap {
+  overflow: clip;
+
+  #content.content-wrapper {
+    margin-top: 0 !important;
+  }
+}
+
+.wrapper-search-context {
+  flex-direction: column;
+}

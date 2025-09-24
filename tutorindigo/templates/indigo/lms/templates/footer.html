@@ -28,19 +28,6 @@
       ## through an API to partner sites (such as marketing sites or blogs),
       ## which are not technically powered by OpenEdX.
       % if not hide_openedx_link:
-      <ul class="logo-list">
-        <li>Powered by:</li>
-        <li>
-          <a href="https://docs.tutor.edly.io" rel="noopener" target="_blank">
-            <img src="${static.url('images/tutor-logo.png')}" alt="Runs on Tutor" width="80" />
-          </a>
-        </li>
-        <li>
-          <a href="${footer['openedx_link']['url']}" rel="noopener" target="_blank">
-            <img src="${static.url('images/openedx-logo.png')}" alt="${footer['openedx_link']['title']}" width="79" />
-          </a>
-        </li>
-      </ul>
     </div>
     {% if INDIGO_FOOTER_NAV_LINKS %}
     <nav class="nav-colophon" aria-label="${_('About')}">
@@ -53,6 +40,13 @@
       </ol>
     </nav>
     {% endif %}
+    <div class="logo-wrapper">
+      <p>
+        <a href="/">
+          <img alt="${_('organization logo')}" src="${footer['logo_image']}">
+        </a>
+      </p>
+    </div>
   </div>
   <span class="copyright-site">Copyrights ©${datetime.now().year}. All Rights Reserved.</span>
   % endif
@@ -111,12 +105,19 @@
         <ol>
             {% for link in INDIGO_FOOTER_NAV_LINKS %}
             <li>
-              <a href="{{ link['url'] }}">{{ link['title'] }}</a>
+              <a target="_blank" href="{{ link['url'] }}">{{ link['title'] }}</a>
             </li>
             {% endfor %}
         </ol>
       </nav>
       {% endif %}
+      <div class="logo-wrapper">
+        <p>
+          <a href="/">
+            <img alt="${_('organization logo')}" src="${footer['logo_image']}">
+          </a>
+        </p>
+      </div>
     </div>
     <span class="copyright-site">Copyrights ©${datetime.now().year}. All Rights Reserved.</span>
     % endif
