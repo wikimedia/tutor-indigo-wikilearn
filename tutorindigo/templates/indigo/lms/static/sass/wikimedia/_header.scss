@@ -3,6 +3,15 @@
 header {
   &.global-header {
     position: sticky;
+    z-index: 3;
+
+    .mobile-menu {
+      background: $body-bg;
+
+      .indigo-dark-theme & {
+        background: $body-bg-d;
+      }
+    }
 
     .nav-links {
       width: auto;
@@ -27,11 +36,25 @@ header {
     }
 
     .header-logo {
+      @include media-down(md) {
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+      }
+
       a {
-        margin: 14px 0 0 9px;
+        margin: 16px 0 0 9px;
+        @include media-down(md) {
+          float: none;
+          margin: 3px 0 0 75px;
+        }
 
         .logo {
-          height: 36px;
+          height: auto;
+          width: 158px;
+          @include media-down(md) {
+            float: none;
+          }
 
           .indigo-dark-theme & {
             filter: invert(1);

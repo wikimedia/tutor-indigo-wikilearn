@@ -33,10 +33,6 @@ a:focus:not(.btn) {
         background: $body-bg-d;
     }
 
-    @include media-up(sm) {
-        margin: 0 -20px;
-    }
-
     @include media-up(xl) {
         padding: 0 20px;
         margin: -20px -20px 0;
