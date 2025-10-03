@@ -34,17 +34,6 @@
                     font-size: 12px;
                     font-weight: 500;
                     padding: 2px 20px;
-
-                    &:before {
-                        content: "\f017";
-                        display: inline-block;
-                        font: normal normal normal 14px/1 FontAwesome;
-                        font-size: inherit;
-                        text-rendering: auto;
-                        margin-right: 10px;
-                        -webkit-font-smoothing: antialiased;
-                        -moz-osx-font-smoothing: grayscale;
-                    }
                 }
             }
 
