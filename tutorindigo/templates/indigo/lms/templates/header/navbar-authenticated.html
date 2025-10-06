@@ -8,10 +8,11 @@
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
+
+from openedx_wikilearn_features.wikimedia_general.api.v0.utils import get_authenticated_header_tabs, get_unauthenticated_header_tabs
 %>
 
 <%
-  show_explore_courses = settings.FEATURES.get('COURSES_ARE_BROWSABLE')
   self.real_user = getattr(user, 'real_user', user)
   enable_help_link = settings.FEATURES.get('ENABLE_HELP_LINK')
 
@@ -24,35 +25,29 @@ from openedx.core.djangoapps.site_configuration import helpers as configuration_
     help_link = support_link
   else:
     help_link = doc_link
+
+  # Fetch tabs depending on auth status
+  if user.is_authenticated:
+      header_tabs = get_authenticated_header_tabs(user)
+  else:
+      header_tabs = get_unauthenticated_header_tabs()
 %>
 
 <div class="nav-links">
   <div class="main">
-    % if show_dashboard_tabs:
+    % for tab in header_tabs:
       <div class="mobile-nav-item hidden-mobile nav-item nav-tab">
-        <a class="${'active ' if reverse('dashboard') == request.path else ''}tab-nav-link" href="${reverse('dashboard')}"
-             aria-current="${'page' if reverse('dashboard') == request.path else 'false'}">
-             ${_("My Courses")}
+        <a
+          class="${'active ' if request.path == tab['url'] or request.path.startswith(tab['url']) else ''}tab-nav-link"
+          href="${tab['url']}"
+          aria-current="${'page' if request.path == tab['url'] or request.path.startswith(tab['url']) else 'false'}"
+        >
+          ${tab['name']}
         </a>
       </div>
-      % if show_program_listing:
-        <div class="mobile-nav-item hidden-mobile nav-item nav-tab">
-          <a class="${'active ' if reverse('program_listing_view') in request.path else ''}tab-nav-link" href="${reverse('program_listing_view')}"
-             aria-current="${'page' if reverse('program_listing_view') == request.path else 'false'}">
-             ${_("Programs")}
-          </a>
-        </div>
-      % endif
-    % endif
-    % if show_explore_courses:
-      <div class="mobile-nav-item hidden-mobile nav-item nav-tab">
-          <a class="${'active ' if reverse('courses') == request.path else ''}tab-nav-link discover-new-link" href="${marketing_link('COURSES')}"
-             aria-current="${'page' if '/courses' in request.path else 'false'}">
-             ${_('Discover')}
-          </a>
-      </div>
-    % endif
+    % endfor
   </div>
+
   <div class="secondary d-flex align-items-center">
     <%include file="./theme-toggle-button.html" />
     <%include file="user_dropdown.html"/>

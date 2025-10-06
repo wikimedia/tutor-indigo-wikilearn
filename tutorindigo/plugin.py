@@ -130,6 +130,9 @@ RUN npm install '@edx/brand@npm:@edly-io/indigo-brand-openedx@^2.2.2'
                 f"mfe-env-config-runtime-definitions-{mfe}",
                 """
 const { default: IndigoFooter } = await import('@edly-io/indigo-frontend-component-footer');
+const { AppContext } = await import ('@edx/frontend-platform/react');
+const { useContext } = await import ('react');
+const { getAuthenticatedHttpClient } = await import ("@edx/frontend-platform/auth");
 """,
             ),
         ]
@@ -225,5 +228,57 @@ for mfe in indigo_styled_mfes:
                 },
             },
   """,
+        ),
+    )
+
+
+for mfe in indigo_styled_mfes:
+    PLUGIN_SLOTS.add_item(
+        (
+            mfe,
+            "desktop_main_menu_slot",
+            """
+            {
+                op: PLUGIN_OPERATIONS.Hide,
+                widgetId: 'default_contents',
+            },
+            {
+              op: PLUGIN_OPERATIONS.Insert,
+              widget: {
+                id: 'dynamic_tabs',
+                type: DIRECT_PLUGIN,
+                RenderWidget: () => {
+                  const [tabs, setTabs] = React.useState([]);
+                  const url = `${getConfig().LMS_BASE_URL}/wikimedia_general/api/v0/lms_tabs`;
+
+                  React.useEffect(() => {
+                    getAuthenticatedHttpClient().get(url)
+                      .then(response => {
+                        if (response?.data?.tabs) {
+                          setTabs(response.data.tabs);
+                        }
+                      })
+                      .catch(error => {
+                        console.error("Failed to load LMS tabs:", error);
+                      });
+                  }, []);
+
+                  return (
+                    <>
+                      {tabs.map(tab => (
+                        <a
+                          key={tab.id}
+                          className="nav-link"
+                          href={getConfig().LMS_BASE_URL + tab.url}
+                        >
+                          {tab.name}
+                        </a>
+                      ))}
+                    </>
+                  );
+                },
+              },
+            }
+            """,
         ),
     )
