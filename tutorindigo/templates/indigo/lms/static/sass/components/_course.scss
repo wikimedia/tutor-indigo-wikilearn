@@ -34,26 +34,23 @@
                     font-size: 12px;
                     font-weight: 500;
                     padding: 2px 20px;
-
-                    &:before {
-                        content: "\f017";
-                        display: inline-block;
-                        font: normal normal normal 14px/1 FontAwesome;
-                        font-size: inherit;
-                        text-rendering: auto;
-                        margin-right: 10px;
-                        -webkit-font-smoothing: antialiased;
-                        -moz-osx-font-smoothing: grayscale;
-                    }
                 }
             }
 
             .description {
                 color: $base-font-color;
-                padding: 15px 20px;
-                font-size: 12px;
-                height: 65px;
-                overflow: hidden;
+                padding: 0 0 10px;
+
+                p {
+                  display: -webkit-box;
+                  -webkit-box-orient: vertical;
+                  -webkit-line-clamp: 2;
+                  line-clamp: 2;
+                  height: 40px;
+                  overflow: hidden;
+                  font-size: 13px;
+                  line-height: 1.5;
+                }
             }
 
             .learn-more {
