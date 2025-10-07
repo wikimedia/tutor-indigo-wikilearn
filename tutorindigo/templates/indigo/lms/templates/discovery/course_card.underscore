@@ -11,6 +11,9 @@
                 <span class="course-title"><%- content.display_name %></span>
                 <span class="course-organization"><%- org %></span>
             </h2>
+            <div class="description">
+              <p><%- course.short_description %></p>
+            </div>
             <a href="/courses/<%- course %>/about" class="learn-more" aria-label="">
               <%- gettext("Learn More") %>
               <span class="sr-only">about <%- content.display_name %></span>

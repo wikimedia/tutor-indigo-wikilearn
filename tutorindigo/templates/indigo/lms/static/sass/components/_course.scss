@@ -39,10 +39,18 @@
 
             .description {
                 color: $base-font-color;
-                padding: 15px 20px;
-                font-size: 12px;
-                height: 65px;
-                overflow: hidden;
+                padding: 0 0 10px;
+
+                p {
+                  display: -webkit-box;
+                  -webkit-box-orient: vertical;
+                  -webkit-line-clamp: 2;
+                  line-clamp: 2;
+                  height: 40px;
+                  overflow: hidden;
+                  font-size: 13px;
+                  line-height: 1.5;
+                }
             }
 
             .learn-more {
