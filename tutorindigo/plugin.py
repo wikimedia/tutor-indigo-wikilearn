@@ -111,6 +111,7 @@ indigo_styled_mfes = [
     "profile",
     "account",
     "discussions",
+    "messenger",
 ]
 
 
@@ -269,7 +270,7 @@ for mfe in indigo_styled_mfes:
                         <a
                           key={tab.id}
                           className="nav-link"
-                          href={getConfig().LMS_BASE_URL + tab.url}
+                          href={tab.url}
                         >
                           {tab.name}
                         </a>
