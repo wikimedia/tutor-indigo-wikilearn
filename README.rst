@@ -138,3 +138,13 @@ License
 -------
 
 This work is licensed under the terms of the `GNU Affero General Public License (AGPL) <https://github.com/overhangio/tutor-indigo/blob/release/LICENSE.txt>`_.
+
+## Wikilearn Customisations
+
+- `courses.html` course card list changed to carousal
+- `course.html` course descption added to the course card
+- LMS's and MFE's header restyles
+- Customise the LMS, Studio and the Mfe's footer
+- Add the certificate style
+  - `accomplishment-base.html` certificate styles linked to this file
+  - `_accomplishment-rendering.html` customize and structural change in this file
