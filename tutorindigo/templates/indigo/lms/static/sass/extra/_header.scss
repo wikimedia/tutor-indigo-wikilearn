@@ -214,7 +214,7 @@ header.global-header {
     .light-theme-icon, .dark-theme-icon{
         width: 18px;
         height: 1.5rem;
-        color: $primary;
+        color: $light-theme-switch-bg-color;
         & svg {
             width: inherit;
             height: inherit;
@@ -244,7 +244,7 @@ header.global-header {
 
               &:focus {
                 ~ .slider {
-                  outline: 2px solid $primary;
+                  outline: 2px solid $light-theme-switch-bg-color;
                   outline-offset: 1px;
                 }
               }
