@@ -21,7 +21,7 @@ config: t.Dict[str, t.Dict[str, t.Any]] = {
     # Add here your new settings
     "defaults": {
         "VERSION": __version__,
-        "WELCOME_MESSAGE": "Unlock The World’s Knowledge",
+        "WELCOME_MESSAGE": "Join the Wikimedia learning community",
         "PRIMARY_COLOR": "#15376D",  # Indigo
         "ENABLE_DARK_TOGGLE": True,
         # Footer links are dictionaries with a "title" and "url"
@@ -205,7 +205,7 @@ for mfe in indigo_styled_mfes:
         (
             mfe,
             "footer_slot",
-            """ 
+            """
             {
                 op: PLUGIN_OPERATIONS.Hide,
                 widgetId: 'default_contents',

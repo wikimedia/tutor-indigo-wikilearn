@@ -12,11 +12,12 @@ from openedx.core.djangolib.markup import HTML, Text
     <section class="main-banner">
       <div class="banner-container">
         <div class="text-block">
-          <h1>${_("Unlock The World’s Knowledge")}</h1>
+          <img src="${static.url('images/banner-logo.png')}" width="627" alt="${_('A learning plataform For the movement by the Movement')}" />
+          <h1 hidden>${_("Unlock The World’s Knowledge")}</h1>
           <p hidden>Any details or captions Any details or captions Any details or captions Any details or captions Any details Any details or captions Any details or captions</p>
         </div>
         <div class="image-block">
-          <img src="${static.url('images/banner-image.png')}" alt={{ INDIGO_WELCOME_MESSAGE }}>
+          <img src="${static.url('images/banner-image-placeholder.png')}" width="383" alt="{{ INDIGO_WELCOME_MESSAGE }}" />
         </div>
       </div>
     </section>
