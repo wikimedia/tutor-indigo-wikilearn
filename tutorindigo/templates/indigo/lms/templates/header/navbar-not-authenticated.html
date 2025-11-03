@@ -46,13 +46,8 @@ from django.utils.translation import gettext as _
     <%include file="./theme-toggle-button.html" />
     <div class="btn-holder">
       % if allows_login:
-        % if allow_public_account_creation and not disable_register_button:
-            <div class="mobile-nav-item hidden-mobile nav-item">
-                <a class="register-btn btn" href="/register${login_query()}">${_("Register")}</a>
-            </div>
-        % endif
         <div class="mobile-nav-item hidden-mobile nav-item">
-            <a class="sign-in-btn btn" href="/login${login_query()}">${_("Sign in")}</a>
+            <a class="register-btn btn" href="/login${login_query()}">${_("Sign in")}</a>
         </div>
       % endif
     </div>
