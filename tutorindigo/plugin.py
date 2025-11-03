@@ -121,7 +121,7 @@ for mfe in indigo_styled_mfes:
             (
                 f"mfe-dockerfile-post-npm-install-{mfe}",
                 """
-RUN npm install @edly-io/indigo-frontend-component-footer@^3.0.0
+RUN npm install @edly-io/wikimedia-frontend-component-footer@^3.0.0
 RUN npm install '@edx/frontend-component-header@npm:@edly-io/indigo-frontend-component-header@^4.0.0'
 RUN npm install '@edx/brand@npm:@edly-io/indigo-brand-openedx@^2.2.2'
 
@@ -130,7 +130,7 @@ RUN npm install '@edx/brand@npm:@edly-io/indigo-brand-openedx@^2.2.2'
             (
                 f"mfe-env-config-runtime-definitions-{mfe}",
                 """
-const { default: IndigoFooter } = await import('@edly-io/indigo-frontend-component-footer');
+const { default: IndigoFooter } = await import('@edly-io/wikimedia-frontend-component-footer');
 const { AppContext } = await import ('@edx/frontend-platform/react');
 const { useContext } = await import ('react');
 const { getAuthenticatedHttpClient } = await import ("@edx/frontend-platform/auth");
