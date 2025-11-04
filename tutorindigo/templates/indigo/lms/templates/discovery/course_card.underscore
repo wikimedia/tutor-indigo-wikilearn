@@ -12,7 +12,7 @@
                 <span class="course-organization"><%- org %></span>
             </h2>
             <div class="description">
-              <p><%- course.short_description %></p>
+              <p><%- content.short_description %></p>
             </div>
             <a href="/courses/<%- course %>/about" class="learn-more" aria-label="">
               <%- gettext("Learn More") %>

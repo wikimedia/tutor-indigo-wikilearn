@@ -13,7 +13,7 @@
     background: none;
 
     .section-title {
-      color: inherit;
+      color: $theme-blue;
     }
   }
 
@@ -26,7 +26,7 @@
 .login-header {
   padding-bottom: 20px;
   h1 {
-    color: inherit;
+    color: $theme-blue;
     font-size: 32px;
     font-weight: bold;
     margin-bottom: 10px;
@@ -38,6 +38,8 @@
   flex-direction: column;
   gap: 50px;
   padding: 20px 40px;
+  border: 1px solid $theme-blue;
+  border-radius: 20px;
 
   @include media-up(sm) {
     flex-direction: row;
@@ -64,6 +66,7 @@
       .text {
         font-size: 18px;
         font-weight: 600;
+        color: $theme-blue;
       }
     }
 
