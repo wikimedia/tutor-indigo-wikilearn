@@ -61,11 +61,7 @@
 
         <% if ( context.providers.length > 0 && !context.currentProvider) { %>
         <div class="login-providers">
-            <div class="section-title lines">
-                <h3>
-                    <span class="text"><%- gettext("or sign in with") %></span>
-                </h3>
-            </div>
+            <h1 class="section-title"><%- gettext("Sign in with") %></span></h1>
 
             <% _.each( context.providers, function( provider ) {
                 if ( provider.loginUrl ) { %>
@@ -109,11 +105,6 @@
             }); %>
         </div>
         <% } %>
-      <div class="signup-title">
-          <h3>
-              <span class="text"><%- gettext("Create an account with") %></span>
-          </h3>
-      </div>
     </div>
     <p><%- gettext("Create Your Account via Meta-Wiki") %> <br /><%- gettext("It's quick and easy! Make sure to use a valid email to unlock all courses and content. This helps ensure you can recover your account if you forget your password or encounter login issues.") %></p>
     <p class="text-center"><%- gettext("You can see this") %> <strong><a href="https://upload.wikimedia.org/wikipedia/commons/7/76/Wikimedia_Core_Curriculum_-_Initial_steps.webm" target="_blank"><%- gettext("video") %></a></strong> <%- gettext("in case you need more help") %></p>
