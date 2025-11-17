@@ -52,7 +52,7 @@
         </div>
         <!-- NEW IN INDIGO Modified search bar and filters. -->
         % if course_discovery_enabled:
-          <div class="saerch-bar-discover">
+          <div class="saerch-bar-discover all-courses">
             <div class="dropdown filter-block">
               <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <svg class="filter-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -98,6 +98,16 @@
         <div class="course-holder courses${'' if course_discovery_enabled else ' no-course-discovery'} all-courses" role="region" aria-label="${_('List of Courses')}">
           <ul class="courses-listing courses-list">
             %for course in courses:
+            <li class="courses-listing-item">
+              <%include file="../course.html" args="course=course" />
+            </li>
+            %endfor
+          </ul>
+        </div>
+           <!-- FOLLOW-UP COURSES SECTION  -->
+        <div class="courses no-course-discovery follow-up-courses hidden" role="region" aria-label="${_('List of Courses')}">
+          <ul class="courses-listing courses-list">
+            %for course in follow_up_courses:
             <li class="courses-listing-item">
               <%include file="../course.html" args="course=course" />
             </li>
