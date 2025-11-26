@@ -127,7 +127,6 @@ RUN npm install '@edx/brand@npm:@edly-io/indigo-brand-openedx@^2.2.2'
 const { default: IndigoFooter } = await import('@edly-io/wikimedia-frontend-component-footer');
 const { AppContext } = await import ('@edx/frontend-platform/react');
 const { useContext } = await import ('react');
-const { getAuthenticatedHttpClient } = await import ("@edx/frontend-platform/auth");
 """,
             ),
         ]
@@ -226,8 +225,6 @@ for mfe in indigo_styled_mfes:
         ),
     )
 
-
-for mfe in indigo_styled_mfes:
     PLUGIN_SLOTS.add_item(
         (
             mfe,
@@ -276,4 +273,22 @@ for mfe in indigo_styled_mfes:
             }
             """,
         ),
+    )
+
+    PLUGIN_SLOTS.add_item(
+        (
+            mfe,
+            "desktop_secondary_menu_slot",
+            """
+            {
+                op: PLUGIN_OPERATIONS.Insert,
+                widget: {
+                    id: 'language_selector_widget',
+                    type: DIRECT_PLUGIN,
+                    priority: 90, // Places it after other secondary menu items
+                    RenderWidget: LanguageWidgetIntl,
+                },
+            }
+            """
+        )
     )
