@@ -327,7 +327,7 @@
     }
     .dropdown-menu {
         display: none;
-        width: 200px;
+        width: 300px;
         left: 0;
         top: 48px !important;
         transform: none !important;
@@ -346,58 +346,87 @@
             display: none;
         }
         .search-facets-lists {
-            h3 {
-                border: none;
-                padding: 0;
-                margin: 0 0 10px;
-                color: #191B23;
-                font-size: 14px;
-                font-weight: 700;
-            }
-            ul.facet-list {
-                padding: 0 0 0 25px;
-                max-height: 100px;
-                overflow-y: auto;
-                li {
-                    height: auto;
+            .facet-container {
+                margin: 0 0 15px;
+                .facet-header-container {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    align-items: center;
+                    width: 100%;
                     margin: 0 0 10px;
-                    button.facet-option {
-                        position: relative;
-                        float: none;
-                        width: auto;
-                        background: none !important;
-                        padding: 0 0 0 24px;
+                    .header-facet {
+                        border: none;
+                        padding: 0;
+                        margin: 0;
+                        color: #191B23;
+                        font-size: 14px;
+                        font-weight: 700;
+                    }
+                    .lng-srch-facet-input {
+                        border: 1px solid #C4C7CF;
+                        border-radius: 4px;
+                        padding: 4px 8px;
                         font-size: 14px;
                         line-height: 20px;
-                        color: #191B23;
-                        &.selected {
-                            .count {
-                                background: $primary;
-                                border-color: $primary;
-                                &:before {
-                                    content: "\f00c";
-                                    width: auto;
-                                    top: 0;
-                                    left: 2px;
-                                    display: block;
-                                    font-size: 10px;
-                                    line-height: 14px;
-                                    color: #fff;
+                        width: auto;
+                        min-width: 120px;
+                        &:focus {
+                            outline: none;
+                            border-color: $primary;
+                        }
+                    }
+                }
+                ul.facet-list {
+                    padding: 0 0 0 25px;
+                    max-height: 100px;
+                    overflow-y: auto;
+                    li {
+                        height: auto;
+                        margin: 0 0 10px;
+                        &.facet-no-results {
+                            padding: 10px;
+                            color: #6c7885;
+                            font-size: 14px;
+                            font-style: italic;
+                            text-align: center;
+                            list-style: none;
+                        }
+                        button.facet-option {
+                            position: relative;
+                            float: none;
+                            width: auto;
+                            background: none !important;
+                            padding: 0 0 0 24px;
+                            font-size: 14px;
+                            line-height: 20px;
+                            color: #191B23;
+                            &.selected {
+                                .count {
+                                    background: $primary;
+                                    border-color: $primary;
+                                    &:before {
+                                        content: "\f00c";
+                                        width: auto;
+                                        top: 0;
+                                        left: 2px;
+                                        display: block;
+                                        font-size: 10px;
+                                        line-height: 14px;
+                                        color: #fff;
+                                    }
                                 }
                             }
-                        }
-                        .count {
-                            position: absolute;
-                            left: 0;
-                            right: auto;
-                            top: 2px;
-                            width: 16px;
-                            height: 16px;
-                            border-radius: 4px;
-                            border: 1px solid #C4C7CF;
-                            background: #fff;
-                            .count-number {
-                                display: none;
+                            .count {
+                                position: absolute;
+                                left: 0;
+                                right: auto;
+                                top: 2px;
+                                width: 16px;
+                                height: 16px;
+                                border-radius: 4px;
+                                border: 1px solid #C4C7CF;
+                                background: #fff;
                             }
                         }
                     }
@@ -479,25 +508,43 @@ body.indigo-dark-theme {
             }
             .search-facets {
                 .search-facets-lists {
-                    h3 {
-                        color: $text-color-d;
-                    }
-                    ul.facet-list {
-                        li {
-                            button.facet-option {
+                    .facet-container {
+                        .facet-header-container {
+                            .header-facet {
                                 color: $text-color-d;
-                                &.selected {
-                                    .count {
-                                        background: $primary-d;
-                                        border-color: $primary-d;
-                                        &:before {
-                                            color: $btn-color-d;
+                            }
+                            .lng-srch-facet-input {
+                                border-color: $border-color-d;
+                                background: $primary-light-d;
+                                color: $text-color-d;
+                                &:focus {
+                                    border-color: $primary-d;
+                                }
+                                &::placeholder {
+                                    color: $text-color-primary;
+                                }
+                            }
+                        }
+                        ul.facet-list {
+                            li {
+                                &.facet-no-results {
+                                    color: $text-color-primary;
+                                }
+                                button.facet-option {
+                                    color: $text-color-d;
+                                    &.selected {
+                                        .count {
+                                            background: $primary-d;
+                                            border-color: $primary-d;
+                                            &:before {
+                                                color: $btn-color-d;
+                                            }
                                         }
                                     }
-                                }
-                                .count {
-                                    border: 1px solid $text-color-d;
-                                    background: $text-color-d;
+                                    .count {
+                                        border: 1px solid $text-color-d;
+                                        background: $text-color-d;
+                                    }
                                 }
                             }
                         }
