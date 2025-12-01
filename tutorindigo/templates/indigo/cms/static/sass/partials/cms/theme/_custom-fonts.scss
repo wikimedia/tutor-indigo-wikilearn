@@ -1,14 +1,4 @@
 @font-face {
-    font-family: 'Open Sans';
-    src:
-        url('#{$static-path}/fonts/OpenSans/OpenSans-Regular-webfont.woff2') format('woff2'),
-        url('#{$static-path}/fonts/OpenSans/OpenSans-Regular-webfont.woff') format('woff'),
-        url('#{$static-path}/fonts/OpenSans/OpenSans-Regular-webfont.ttf') format('truetype');
-    font-weight: 400;
-    font-style: normal;
-}
-
-@font-face {
     font-family: 'TrebuchetMS';
     src:
         url('#{$static-path}/fonts/TrebuchetMS/TrebuchetMS.woff') format('woff'),
@@ -47,12 +37,6 @@
 
 
 #main, #course-content {
-    &.font-open-sans {
-        font-family: $font-family-open-sans !important;
-        &, h1, h2, h3, h4, h5, h6, p, label, select {
-            font-family: $font-family-open-sans !important;
-        }
-    }
     &.font-trebuchet {
         font-family: $font-family-trebuchet !important;
         &, h1, h2, h3, h4, h5, h6, p, label, select {
