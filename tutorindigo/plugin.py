@@ -107,6 +107,7 @@ indigo_styled_mfes = [
     "account",
     "discussions",
     "messenger",
+    "communications",
 ]
 
 
@@ -118,7 +119,7 @@ for mfe in indigo_styled_mfes:
                 """
 RUN npm install @edly-io/wikimedia-frontend-component-footer@latest
 RUN npm install '@edx/brand@npm:@edly-io/indigo-brand-openedx@^2.2.2'
-
+RUN npm install @edx/frontend-plugin-notifications@^2.0.3
 """,
             ),
             (
@@ -127,6 +128,7 @@ RUN npm install '@edx/brand@npm:@edly-io/indigo-brand-openedx@^2.2.2'
 const { default: IndigoFooter } = await import('@edly-io/wikimedia-frontend-component-footer');
 const { AppContext } = await import ('@edx/frontend-platform/react');
 const { useContext } = await import ('react');
+const { NotificationsTray } = await import('@edx/frontend-plugin-notifications');
 """,
             ),
         ]
@@ -285,10 +287,46 @@ for mfe in indigo_styled_mfes:
                 widget: {
                     id: 'language_selector_widget',
                     type: DIRECT_PLUGIN,
-                    priority: 90, // Places it after other secondary menu items
+                    priority: 9,
                     RenderWidget: LanguageWidgetIntl,
                 },
-            }
+            },
+            {
+              op: PLUGIN_OPERATIONS.Insert,
+                widget: {
+                    id: 'notification-drawer-widget',
+                    priority: 10,
+                    type: DIRECT_PLUGIN,
+                    RenderWidget: NotificationsTray,
+                },
+            },
             """
         )
+    )
+
+    PLUGIN_SLOTS.add_item(
+        (
+            mfe,
+            "org.openedx.frontend.layout.header_learning_help.v1",
+            """
+            {
+                op: PLUGIN_OPERATIONS.Insert,
+                widget: {
+                    id: 'language_selector_widget',
+                    type: DIRECT_PLUGIN,
+                    priority: 9,
+                    RenderWidget: LanguageWidgetIntl,
+                },
+            },
+            {
+                op: PLUGIN_OPERATIONS.Insert,
+                widget: {
+                    id: 'notification-drawer-widget',
+                    priority: 10,
+                    type: DIRECT_PLUGIN,
+                    RenderWidget: NotificationsTray,
+                },
+            },
+            """
+        ),
     )
