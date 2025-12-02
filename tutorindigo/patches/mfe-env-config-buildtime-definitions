@@ -140,18 +140,10 @@ const LanguageWidget = ({ intl }) => {
     return null;
   }
 
-
-  const selectStyle = {
-    cursor: 'pointer',
-    position: 'absolute',
-    top: 90,
-  };
-
   return (
     <select
       id="language-select"
       className="select-dropdown mx-2"
-      style={selectStyle}
       onChange={handleChange}
       value={intl.locale}
       aria-label="Select language"
