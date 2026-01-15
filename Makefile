@@ -15,6 +15,10 @@ test-lint: ## Run code linting tests
 test-types: ## Run type checks.
 	mypy --exclude=templates --ignore-missing-imports --implicit-reexport --strict ${SRC_DIRS}
 
+extract_translations:
+	mkdir -p conf/locale/en/LC_MESSAGES
+	i18n_tool extract --no-segment
+
 format: ## Format code automatically
 	black $(BLACK_OPTS)
 
