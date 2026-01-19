@@ -166,14 +166,17 @@ flag_icon =  "icon fa fa-globe"
                         % endif
                         % if is_destination_course:
                             <li class="action-item action-show-status">
-                                <span data-tooltip="Mapped : ${ block_status['mapped'] }" class="action-button" style="display: flex;">
+                                <span data-tooltip="Mapped : ${ block_status['mapped'] }" class="action-button" style="display: flex;align-items: center;justify-content: center;">
                                     <span class="${flag_icon}" aria-hidden="true"></span>
                                 </span>
                             </li>
                         % endif
                         % if is_mapped:
                             <li class="action-item action-switch">
-                                <span class="action-button" data-tooltip="${_(checkbox_title)}" style="display: flex;">
+                                <span
+                                    class="action-button" data-tooltip="${_(checkbox_title)}" 
+                                    style="display: flex;align-items: center;justify-content: center;"
+                                >
                                     <input type="checkbox" id="${xblock.location}_checkboxTranslation"
                                     data-tooltip="${_(checkbox_title)}"
                                     class="checkbox-direction-button"
