@@ -21,3 +21,5 @@ ignore_dirs:
 generate_merge:
   django.po:
     - django-partial.po
+  djangojs.po:
+    - djangojs-partial.po

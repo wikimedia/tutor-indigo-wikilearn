@@ -18,6 +18,11 @@ test-types: ## Run type checks.
 extract_translations:
 	mkdir -p conf/locale/en/LC_MESSAGES
 	i18n_tool extract --no-segment
+	django-admin makemessages -l en -d djangojs \
+		--extension=js \
+		--ignore=node_modules \
+		--ignore=docs \
+		-o conf/locale/en/LC_MESSAGES/djangojs.po
 
 format: ## Format code automatically
 	black $(BLACK_OPTS)
