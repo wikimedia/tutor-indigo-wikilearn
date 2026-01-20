@@ -18,8 +18,3 @@ ignore_dirs:
   - '*/images'
   - '*/sass'
   - '*/css'
-generate_merge:
-  django.po:
-    - django-partial.po
-  djangojs.po:
-    - djangojs-partial.po

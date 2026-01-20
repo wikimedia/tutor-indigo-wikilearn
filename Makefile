@@ -17,12 +17,22 @@ test-types: ## Run type checks.
 
 extract_translations:
 	mkdir -p conf/locale/en/LC_MESSAGES
+	# Step 1: Extract Django templates ({% trans %}) using i18n_tool
 	i18n_tool extract --no-segment
-	django-admin makemessages -l en -d djangojs \
-		--extension=js \
-		--ignore=node_modules \
-		--ignore=docs \
-		-o conf/locale/en/LC_MESSAGES/djangojs.po
+	# Step 2: Extract Mako templates (_("...")) and merge into django.po
+	find tutorindigo -name "*.html" -o -name "*.py" | \
+		xgettext --language=Python \
+			--keyword=_ \
+			--keyword=gettext \
+			--from-code=UTF-8 \
+			--join-existing \
+			--output=conf/locale/en/LC_MESSAGES/django.po \
+			--files-from=-
+
+pull_translations:
+	atlas pull $(ATLAS_OPTIONS) \
+		translations/tutor-indigo-wikilearn/conf/locale:conf/locale \
+		translations/tutor-indigo-wikilearn/tutorindigo:tutorindigo
 
 format: ## Format code automatically
 	black $(BLACK_OPTS)
