@@ -1,0 +1,500 @@
+@import "wiki-variables";
+html { height: 100%; }
+.translations {
+  box-sizing: border-box;
+  padding: 50px 20px;
+  min-height: calc( 100vh - 280px);
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  * {
+    &,
+    &:after,
+    &:before {
+      box-sizing: border-box;
+    }
+  }
+
+  .translation-header,
+  .translation-languages {
+    display: flex;
+    padding-bottom: 20px;
+
+    .course-select {
+      width: 100%;
+    }
+
+    .col {
+      flex: 0 0 50%;
+      max-width: 50%;
+      padding: 0 25px;
+
+      > div {
+        max-width: 290px;
+      }
+    }
+
+    .col.translation-block {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .message {
+      text-align: center;
+      padding: 0 25px;
+    }
+  }
+
+  .translation-frame {
+    background: #fff;
+    padding: 20px 5px;
+    border-radius: 5px;
+  
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      padding: 0px 25px;
+      font-size: 14px;
+      color: gray;
+      background-color: whitesmoke;
+    }
+  }
+}
+
+.sections {
+
+  .col {
+    padding: 8px $indent;
+    flex: 0 0 50%;
+    font-size: 15px;
+    position: relative;
+
+    .title {
+      font-size: 16px;
+    }
+
+    &:first-child {
+      @include border-right(1px solid #ccc);
+    }
+
+    &.content-actions {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .content-bar {
+      display: flex;
+      flex-grow: 1;
+    }
+
+    .action-bar {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .header { cursor: pointer; }
+
+  .btn {
+    color: #777;
+    padding: 2px 5px;
+    display: inline-block;
+    vertical-align: middle;
+    height: fit-content;
+    border-radius: 3px;
+    margin: 0 10px;
+
+    &.not-visible { visibility: hidden; }
+
+    &:hover {
+      background: $theme-blue;
+      color: #fff;
+    }
+
+    &.approved {
+      background: none;
+      cursor: default;
+      color: $theme-green;
+    }
+
+    &.disabled {
+      color: #777;
+      cursor: not-allowed;
+      opacity: .8;
+      background: #eee;
+    }
+  }
+
+  .header,
+  .translation-body,
+  .translation-title {
+    display: flex;
+  }
+
+  .header,
+  .translation-content {
+    position: relative;
+
+    .btn-box {
+      @include text-align(right);
+    }
+
+    .btn-box > * {
+      display: inline-block;
+      @include margin-left(10px);
+    }
+
+    &:hover {
+      background: #eee;
+    }
+
+    .fa-chevron-down {
+      top: 14px;
+      @include left(5px);
+      position: absolute;
+      font-size: 11px;
+      transition: transform .3s ease;
+    }
+  }
+
+  .course-info-header {
+    &:hover {
+      background: transparent !important;
+    }
+    cursor: default !important;
+  }
+
+  .translation-body {
+    font-size: 14px;
+
+    * {
+      font-size: inherit !important;
+    }
+
+    ul, ol {
+      margin: 2rem 0;
+      @include padding-left(2rem);
+      list-style: inherit;
+    }
+
+    ol {
+      list-style: auto;
+    }
+
+    ol > li::marker {
+      font-weight: bold;
+    }
+
+    p {
+      margin: 2rem 0;
+    }
+  }
+
+  .body {
+
+    .col {
+      @include padding-left($indent*2);
+
+      .fa-chevron-down {
+        @include left($indent*2-15);
+      }
+    }
+
+    .body {
+
+      .col {
+        @include padding-left($indent*3);
+
+        .fa-chevron-down {
+          @include left($indent*3-15);
+        }
+      }
+    }
+  }
+}
+
+.collapsed {
+
+  > .header {
+
+    .approveAll {
+      visibility: hidden;
+    }
+
+    .fa-chevron-down {
+      transform: rotate(-90deg);
+    }
+  }
+
+  > .body {
+    display: none;
+  }
+}
+
+.course-select {
+  background-color: #f2f2f2;
+  background-image: -webkit-linear-gradient(#f2f2f2,#fff);
+  background-image: linear-gradient(#f2f2f2,#fff);
+  padding: 6px 8px 8px;
+  border: 1px solid #b2b2b2;
+  border-radius: 2px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+  color: #4c4c4c;
+  outline: 0;
+}
+
+.group-settings.course_flag {
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+  }
+
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    @include left(3px);
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+
+  input:checked + .slider {
+    background-color: #0075b4;
+  }
+
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 32px;
+
+    .cross {
+        position: absolute;
+        top: 0;
+        @include left(12px);
+      }
+
+    .tick {
+        position: absolute;
+        top: 0;
+        @include right(17px);
+      }
+  }
+
+  .slider.round:before {
+    border-radius: 50%;
+  }
+}
+
+.fetch-and-send {
+  padding-top: 10px
+}
+
+.btn-translations {
+  line-height: 1.776rem;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 1.2rem;
+  padding: 5px 8px;
+  background: #0075b4;
+  border-color: #0075b4;
+  color: #fff;
+
+  &:hover,
+  &:active,
+  &:focus  {
+    background: #065683;
+    border-color: #065683;
+    box-shadow: 0 2px 1px;
+  }
+
+  &.not-visible { visibility: hidden; }
+
+  &.btn-action {
+    padding: 9px 12px;
+    display: inline-block;
+    vertical-align: bottom;
+    height: 36px;
+    margin-top: 0;
+    white-space: nowrap;
+  }
+
+  &.approved {
+    background: none;
+    cursor: default;
+    color: $theme-green;
+  }
+
+  &.disabled {
+    color: #777;
+    cursor: not-allowed;
+    opacity: .8;
+    background: #eee;
+    border-color: #777;
+  }
+}
+
+.badge {
+  height: 36px;
+  line-height: 1.776rem;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 1.2rem;
+  padding: 9px 12px;
+  cursor: auto;
+
+  &.badge-fit {
+    padding: 2px 10px;
+    margin: 0 5px;
+    position: relative;
+    height: auto;
+    border-radius: 20px;
+    font-size: 1rem;
+  }
+
+  &.badge-success {
+    color: #fff;
+    background-color: #28a745;
+  }
+
+  &.badge-info {
+    color: #fff;
+    background-color: #0075b4;
+  }
+}
+
+.course-badge {
+  display: flex;
+  @include ltr {
+    justify-content: right;
+  }
+  @include rtl {
+    justify-content: left;
+  }
+  margin: 0;
+}
+
+.meta-translations-message {
+  display: inline-block;
+  vertical-align: top;
+  margin: 5px 10px 15px 27px;
+}
+
+.react-switch-bg {
+  background: #0075b4 !important
+}
+
+.status-course-blocks-mapping {
+  vertical-align: top;
+  display: inline-block;
+  @include margin-left(25px);
+}
+
+.icon-svg-globe {
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+
+  svg {
+    width: 16px;
+    height: 16px;
+    display: block;
+  }
+
+  &:hover {
+    svg {
+      g {
+        fill: white
+      }
+    }
+  }
+}
+
+.xmodule_display.xmodule_ProblemBlock div.problem {
+  .choicegroup {
+
+    input[type="radio"], input[type="checkbox"] {
+      @include margin-right(10px);
+      @include margin-left(5px);
+    }
+  }
+}
+
+div.xmodule_edit.xmodule_ProblemBlock {
+  .editor {
+    .editor-bar {
+      @include rtl {
+        z-index: 1;
+      }
+    }
+  }
+
+  .simple-editor-cheatsheet {
+    @include rtl {
+      left: auto;
+      right: 70%;
+      border-left: 0;
+      border-right: 1px solid #b2b2b2;
+    }
+  }
+}
+
+.wrapper-sock {
+  z-index: 0;
+}
+
+.list-courses {
+  .grid-header {
+    margin: 20px;
+    input {
+      min-width: 300px;
+    }
+  }
+  .studio-filters {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 20px;
+
+    .filter-field {
+      width: 200px;
+    }
+  }
+}
