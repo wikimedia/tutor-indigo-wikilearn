@@ -43,15 +43,15 @@ header {
       }
 
       a {
-        margin: 16px 0 0 9px;
+        margin: 21px 0 0 0;
         @include media-down(md) {
           float: none;
           margin: 3px 0 0 75px;
         }
 
         .logo {
-          height: auto;
-          width: 158px;
+          height: 21px;
+          width: auto;
           @include media-down(md) {
             float: none;
           }

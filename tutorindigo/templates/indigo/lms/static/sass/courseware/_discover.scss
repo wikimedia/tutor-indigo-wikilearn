@@ -401,6 +401,7 @@
                             font-size: 14px;
                             line-height: 20px;
                             color: #191B23;
+                            overflow: visible;
                             &.selected {
                                 .count {
                                     background: $primary;
@@ -427,6 +428,12 @@
                                 border-radius: 4px;
                                 border: 1px solid #C4C7CF;
                                 background: #fff;
+
+                                .count-number {
+                                    position: relative;
+                                    left: -20px;
+                                    top: -3px;
+                                }
                             }
                         }
                     }

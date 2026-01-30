@@ -38,10 +38,9 @@ header.global-header {
         }
 
         .main {
-            margin: 13px 0 0;
+            margin: 13px 0 0 16px;
             float: none;
             flex-grow: 1;
-            text-align: center;
 
             .nav-item {
 
@@ -54,11 +53,11 @@ header.global-header {
 
             a,
             .nav-tab a {
+                margin: 0 12px 0 0;
                 font-size: 14px;
-                font-weight: 700;
-                padding: 7px 16px 12px;
+                padding: 7px 0 12px;
                 display: block;
-                color: $base-font-color;
+                color: $light-dark;
 
                 &:focus,
                 &:hover {
@@ -68,7 +67,7 @@ header.global-header {
         }
 
         .secondary {
-            margin: 12px 15px 0 0;
+            margin: 12px 0 0 0;
 
             &.authed {
 
