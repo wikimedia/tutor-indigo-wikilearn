@@ -108,6 +108,7 @@ indigo_styled_mfes = [
     "discussions",
     "messenger",
     "communications",
+    "learner-record",
 ]
 
 
