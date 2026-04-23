@@ -13,7 +13,11 @@ course_mode_class = course_mode if course_mode else ''
             <div class="accomplishment-wrapper">
                 <div class="main-content">
                     <div class="logo-box">
-                        <img class="logo" src="${static.url('indigo/images/wikimedia-foundation-logo.png')}" alt="${accomplishment_copy_course_name}">
+                        % if full_course_image_url:
+                            <img class="logo" src="${full_course_image_url}" alt="${accomplishment_copy_course_name}">
+                        % else:
+                            <img class="logo" src="${static.url('indigo/images/wikimedia-foundation-logo.png')}" alt="${accomplishment_copy_course_name}">
+                        % endif
                     </div>
                     <div class="wrapper-statement-and-signatories">
                         <div class="accomplishment-statement">

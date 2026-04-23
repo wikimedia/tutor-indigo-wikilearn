@@ -209,6 +209,13 @@
   flex: 0 0 66.7%;
   max-width: 66.7%;
   min-height: 430px;
+  padding-right: 2rem;
+  box-sizing: border-box;
+
+  .rtl & {
+    padding-right: 0;
+    padding-left: 2rem;
+  }
 }
 
 .side-area {
@@ -276,9 +283,10 @@
 
   .logo {
     height: auto;
-    width: 236px;
+    width: auto;
     display: block;
     max-height: 100%;
+    max-width: 236px;
 
     .rtl & {
       margin-left: auto;
