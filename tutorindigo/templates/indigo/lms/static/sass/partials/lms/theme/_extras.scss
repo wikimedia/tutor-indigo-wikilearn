@@ -433,6 +433,13 @@ body.view-teams {
   }
 }
 body.view-instructordash {
+   .tabs.course-tabs {
+    pointer-events: none;
+
+    li, a, button {
+      pointer-events: auto;
+    }
+  }
   .container {
     max-width: 1600px !important;
     padding: 0 15px !important;
