@@ -28,8 +28,17 @@ extract_translations:
 			--join-existing \
 			--output=conf/locale/en/LC_MESSAGES/django.po \
 			--files-from=-
-	# Step 3: Extract Underscore.js templates and JS files (gettext("..."))
-	find tutorindigo \( -name "*.underscore" -o -name "*.js" \) | \
+	# Step 3: Extract Underscore.js templates (gettext("...")) — Python mode avoids
+	# xgettext crashing on <% %> template syntax in the JavaScript parser
+	find tutorindigo -name "*.underscore" | \
+		xgettext --language=Python \
+			--keyword=gettext \
+			--from-code=UTF-8 \
+			--join-existing \
+			--output=conf/locale/en/LC_MESSAGES/django.po \
+			--files-from=-
+	# Step 4: Extract JS files (gettext("..."))
+	find tutorindigo -name "*.js" | \
 		xgettext --language=JavaScript \
 			--keyword=gettext \
 			--from-code=UTF-8 \
