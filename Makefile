@@ -19,10 +19,18 @@ extract_translations:
 	mkdir -p conf/locale/en/LC_MESSAGES
 	# Step 1: Extract Django templates ({% trans %}) using i18n_tool
 	i18n_tool extract --no-segment
-	# Step 2: Extract Mako templates (_("...")) and merge into django.po
+	# Step 2: Extract HTML/Python files (_("...") and gettext("..."))
 	find tutorindigo -name "*.html" -o -name "*.py" | \
 		xgettext --language=Python \
 			--keyword=_ \
+			--keyword=gettext \
+			--from-code=UTF-8 \
+			--join-existing \
+			--output=conf/locale/en/LC_MESSAGES/django.po \
+			--files-from=-
+	# Step 3: Extract Underscore.js templates and JS files (gettext("..."))
+	find tutorindigo \( -name "*.underscore" -o -name "*.js" \) | \
+		xgettext --language=JavaScript \
 			--keyword=gettext \
 			--from-code=UTF-8 \
 			--join-existing \
