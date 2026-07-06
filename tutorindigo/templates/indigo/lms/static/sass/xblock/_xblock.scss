@@ -590,15 +590,14 @@
 }
 // RTL fix: Teak's precompiled HtmlBlockDisplay.css hardcodes LTR list padding
 // (padding: 0 0 0 1em) with no RTL variant. Flip it for RTL pages.
-[dir="rtl"] {
-    .xmodule_display.xmodule_AboutBlock ol,
-    .xmodule_display.xmodule_AboutBlock ul,
-    .xmodule_display.xmodule_CourseInfoBlock ol,
-    .xmodule_display.xmodule_CourseInfoBlock ul,
-    .xmodule_display.xmodule_HtmlBlock ol,
-    .xmodule_display.xmodule_HtmlBlock ul,
-    .xmodule_display.xmodule_StaticTabBlock ol,
-    .xmodule_display.xmodule_StaticTabBlock ul {
-        padding: 0 1em 0 0;
+[dir="rtl"] .xmodule_display {
+  &.xmodule_HtmlBlock,
+  &.xmodule_AboutBlock,
+  &.xmodule_StaticTabBlock,
+  &.xmodule_CourseInfoBlock {
+    ol,
+    ul {
+      padding: 0 1em 0 0;
     }
+  }
 }
