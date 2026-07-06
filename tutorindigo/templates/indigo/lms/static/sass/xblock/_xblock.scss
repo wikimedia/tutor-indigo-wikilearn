@@ -588,8 +588,16 @@
   body, h1, h2, h3, h4, h5, h6, p, label { text-align: right; }
   
 }
-// RTL fix: Teak's precompiled HtmlBlockDisplay.css hardcodes LTR list padding
-// (padding: 0 0 0 1em) with no RTL variant. Flip it for RTL pages.
+// ── RTL text alignment for course content ──────────────────────────
+// Teak's rtlcss theme pipeline doesn't flip broad text-align rules, and
+// several XBlocks ship LTR-hardcoded CSS. These restore right-alignment
+// for RTL pages.
+
+[dir="rtl"] {
+  body, h1, h2, h3, h4, h5, h6, p, label { text-align: right; }
+}
+
+// HTML/About/StaticTab/CourseInfo blocks: list bullet side + list text
 [dir="rtl"] .xmodule_display {
   &.xmodule_HtmlBlock,
   &.xmodule_AboutBlock,
@@ -597,7 +605,33 @@
   &.xmodule_CourseInfoBlock {
     ol,
     ul {
-      padding: 0 1em 0 0;
+      padding: 0 1em 0 0;   // bullet/number side
     }
+
+    li {
+      text-align: right;    // list item text (span/a/text inherit from here)
+    }
+  }
+}
+
+// Poll XBlock
+[dir="rtl"] .poll-container {
+  .poll-question,
+  .poll-question h3,
+  .poll-answer-text,
+  .poll-answer-text p {
+    text-align: right;
+  }
+}
+
+// Capa Problem XBlock (checkbox/radio/etc.)
+[dir="rtl"] .problem {
+  .response-fieldset-legend,
+  .question-description,
+  .response-label,
+  .response-label > div,
+  legend,
+  .field label {
+    text-align: right;
   }
 }
