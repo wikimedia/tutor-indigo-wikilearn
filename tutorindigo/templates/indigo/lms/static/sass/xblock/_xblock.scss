@@ -635,3 +635,71 @@
     text-align: right;
   }
 }
+
+[dir="rtl"] .problem {
+  .wrapper-problem-response,
+  .capa_inputtype,
+  fieldset {
+    text-align: right !important;
+  }
+
+  select,
+  input[type="text"],
+  input[type="number"] {
+    text-align: right;
+  }
+
+  .action .submit-attempt-container .submit {
+    float: right !important;
+    margin-right: 0;
+    margin-left: 10px;
+  }
+
+  .trailing_text {
+    margin-right: 0;
+    margin-left: 10px;
+  }
+}
+
+
+[dir="rtl"] .video .subtitles {
+  float: right;
+
+  .subtitles-menu li {
+    text-align: right;
+  }
+}
+
+// ── RTL: mixed Arabic/English inline runs (e.g. English inside <b>) ─
+[dir="rtl"] {
+  b, strong, i, em, a, code, bdo {
+    unicode-bidi: plaintext;
+  }
+}
+
+// ── RTL: problem notifications (saved/answer hints) + score line ────
+[dir="rtl"] .problem .notification {
+  float: right;
+  text-align: right;
+
+  .notification-message {
+    text-align: right;
+  }
+}
+
+[dir="rtl"] .problems-wrapper .problem-progress {
+  float: right;
+  text-align: right;
+}
+
+[dir="rtl"] .problem .action {
+  text-align: right;
+}
+
+[dir="rtl"] .themed-xblock.xblock--drag-and-drop {
+  text-align: right;
+}
+
+[dir="rtl"] .xblock.xblock-student_view.xblock-student_view-html {
+  text-align: right;
+}
