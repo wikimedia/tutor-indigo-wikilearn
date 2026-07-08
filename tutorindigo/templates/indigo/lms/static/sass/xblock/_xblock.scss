@@ -584,54 +584,127 @@
     }
 }
 
+// ── RTL styles ──────────────────────────────────────────────────────
 [dir="rtl"] {
-  body, h1, h2, h3, h4, h5, h6, p, label { text-align: right; }
-  
-}
-// ── RTL text alignment for course content ──────────────────────────
-// Teak's rtlcss theme pipeline doesn't flip broad text-align rules, and
-// several XBlocks ship LTR-hardcoded CSS. These restore right-alignment
-// for RTL pages.
-
-[dir="rtl"] {
-  body, h1, h2, h3, h4, h5, h6, p, label { text-align: right; }
-}
-
-// HTML/About/StaticTab/CourseInfo blocks: list bullet side + list text
-[dir="rtl"] .xmodule_display {
-  &.xmodule_HtmlBlock,
-  &.xmodule_AboutBlock,
-  &.xmodule_StaticTabBlock,
-  &.xmodule_CourseInfoBlock {
-    ol,
-    ul {
-      padding: 0 1em 0 0;   // bullet/number side
-    }
-
-    li {
-      text-align: right;    // list item text (span/a/text inherit from here)
-    }
-  }
-}
-
-// Poll XBlock
-[dir="rtl"] .poll-container {
-  .poll-question,
-  .poll-question h3,
-  .poll-answer-text,
-  .poll-answer-text p {
+  // General text alignment
+  body,
+  h1, h2, h3, h4, h5, h6,
+  p,
+  label {
     text-align: right;
   }
-}
 
-// Capa Problem XBlock (checkbox/radio/etc.)
-[dir="rtl"] .problem {
-  .response-fieldset-legend,
-  .question-description,
-  .response-label,
-  .response-label > div,
-  legend,
-  .field label {
+  // HTML/About/StaticTab/CourseInfo blocks
+  .xmodule_display {
+    &.xmodule_HtmlBlock,
+    &.xmodule_AboutBlock,
+    &.xmodule_StaticTabBlock,
+    &.xmodule_CourseInfoBlock {
+      ol,
+      ul {
+        padding: 0 1em 0 0;
+      }
+
+      li {
+        text-align: right;
+      }
+    }
+  }
+
+  // Poll XBlock
+  .poll-container {
+    .poll-question,
+    .poll-question h3,
+    .poll-answer-text,
+    .poll-answer-text p {
+      text-align: right;
+    }
+  }
+
+  // Capa Problem XBlock
+  .problem {
+    .response-fieldset-legend,
+    .question-description,
+    .response-label,
+    .response-label > div,
+    legend,
+    .field label {
+      text-align: right;
+    }
+
+    .wrapper-problem-response,
+    .capa_inputtype,
+    fieldset {
+      text-align: right !important;
+    }
+
+    select,
+    input[type="text"],
+    input[type="number"] {
+      text-align: right;
+    }
+
+    .action {
+      text-align: right;
+
+      .submit-attempt-container .submit {
+        float: right !important;
+        margin-right: 0;
+        margin-left: 10px;
+      }
+    }
+
+    .trailing_text {
+      margin-right: 0;
+      margin-left: 10px;
+    }
+
+    // Notifications
+    .notification {
+      float: right;
+      text-align: right;
+
+      .notification-message {
+        text-align: right;
+      }
+    }
+  }
+
+  // Problem progress
+  .problems-wrapper .problem-progress {
+    float: right;
+    text-align: right;
+  }
+
+  // Video subtitles
+  .video {
+    .subtitles {
+      float: right;
+
+      .subtitles-menu li {
+        text-align: right;
+      }
+    }
+  }
+
+  // Mixed Arabic/English inline runs
+  b,
+  strong,
+  i,
+  em,
+  a,
+  code,
+  bdo {
+    unicode-bidi: plaintext;
+  }
+
+  // Drag & Drop XBlock
+  .themed-xblock.xblock--drag-and-drop {
+    text-align: right;
+  }
+
+  // HTML XBlock
+  .xblock.xblock-student_view.xblock-student_view-html {
     text-align: right;
   }
 }
