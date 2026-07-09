@@ -1,0 +1,185 @@
+@import "wiki-variables";
+html { height: 100%; }
+.discover-courses {
+    box-sizing: border-box;
+    padding: 50px 20px;
+    min-height: calc( 100vh - 280px);
+
+    * {
+      &,
+      &:after,
+      &:before {
+        box-sizing: border-box;
+      }
+    }
+
+    .page-title {
+        padding-bottom: 20px;
+        font-weight: bold;
+        font-size: x-large;
+    }
+
+    .content {
+        display: flex;
+
+        .grid-block {
+            flex: 5;
+            .grid-header {
+                padding-top: 10px;
+                padding-bottom: 25px;
+                position: sticky;
+                top: 0;
+                background-color: whitesmoke;
+                display: flex;
+                justify-content: space-between;
+                width: 95%;
+
+                .title{
+                    flex: 1;
+                    font-size: larger;
+                    font-weight: bold;
+                }
+                .search-course-field{
+                    width: 30%;
+                }
+                .badge{
+                    margin: 5px;
+                }
+            }
+            .grid-courses {
+                border-collapse: collapse;
+                width: 95%;
+
+                thead {
+                    position: sticky;
+                    top: 60px;
+                }
+
+                td, th {
+                    border: 1px solid #ddd;
+                    padding: 8px;
+                }
+
+                tr:hover {
+                    background-color: #ddd;
+                    cursor: pointer;
+                }
+
+                th {
+                    padding-top: 12px;
+                    padding-bottom: 12px;
+                    @include ltr {
+                        text-align: left;
+                    }
+                    @include rtl {
+                        text-align: right;
+                    }
+                    background-color: #D3D3D3;
+                    color: black;
+                }
+            }
+            .translation-block {
+                width: 95%;
+                padding: 25px 25px;
+                margin-bottom: 20px;
+                border: 1px solid #707070;
+                border-radius: 16px;
+                background: #fff;
+                color: black;
+
+                .header {
+                    display: flex;
+                    justify-content: space-between;
+                    .header-title{
+                        display: flex;
+                        .title {
+                            font-weight: bold;
+                        }
+                        .title-buttons {
+                            padding: 0 20px;
+                            .btn {
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                }
+                .content {
+                    font-size: small;
+                    line-height: 1.5em;
+                    max-height: 3em;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    width: 100%;
+                }
+            }
+            ol, ul {
+                list-style: inside;
+            }
+            .grid-actions {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+        .filter-block {
+            flex: 1;
+            @include ltr {
+                border-left: solid #707070;
+            }
+            @include rtl {
+                border-right: solid #707070;
+            }
+            border-width: thin;
+            padding: 20px 20px;
+            position: sticky;
+            top: 0;
+            height: min-content;
+
+            .filter-header {
+                padding-bottom: 10px;
+                .title {
+                    font-size: large;
+                    font-weight: bold;
+                    font-style: italic;
+                }
+            }
+
+            .filter-field {
+                padding-bottom: 20px;
+                .title {
+                    font-weight: bold;
+                    padding-bottom: 5px;
+                }
+                .block {
+                    display: grid;
+                }
+            }
+
+            .multi-selector {
+                label {
+                    font-size: 1.5rem;
+                }
+                .options {
+                    padding-top: 10px;
+                }
+            }
+            .block-checkbox {
+                display: inline-flex;
+                align-items: center;
+                align-content: center;
+                font-size: 1.5rem;
+                cursor: pointer;
+
+                input {
+                    cursor: pointer;
+                    @include ltr {
+                        margin-right: 5px;
+                    }
+                    @include rtl {
+                        margin-left: 5px;
+                    }
+                }
+            }
+        }
+    }
+}
