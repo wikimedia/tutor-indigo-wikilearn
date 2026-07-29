@@ -341,6 +341,11 @@
 }
 
 @media print {
+  @page {
+    margin: 0;
+    padding: 5mm;
+  }
+
   .list-signatories {
     justify-content: flex-start !important;
   }
