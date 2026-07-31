@@ -350,6 +350,11 @@
     justify-content: flex-start !important;
   }
 
+  .accomplishment-wrapper {
+    box-sizing: border-box;
+    width: 100%;
+  }
+
   .accomplishment-rendering {
     padding: 0;
 
@@ -384,6 +389,8 @@
     .accomplishment-signatories {
 
       .signatory {
+        flex: 0 0 auto; 
+        max-width: 233px;
 
         .signatory-signature {
           height: auto;
