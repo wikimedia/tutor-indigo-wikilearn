@@ -343,11 +343,15 @@
 @media print {
   @page {
     margin: 0;
-    padding: 5mm;
+  }
+
+  body, html {
+    zoom: 0.95; 
   }
 
   .list-signatories {
     justify-content: flex-start !important;
+    gap: 5px;
   }
 
   .accomplishment-wrapper {
@@ -398,6 +402,14 @@
         }
       }
     }
+  }
+
+  .accomplishment-wrapper {
+    padding-bottom: 0 !important;
+  }
+
+  .wrapper-accomplishment-rendering{
+    margin-bottom: 0 !important;
   }
 
   .logo {
