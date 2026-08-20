@@ -45,6 +45,11 @@ extract_translations:
 			--join-existing \
 			--output=conf/locale/en/LC_MESSAGES/django.po \
 			--files-from=-
+	# Step 5: xgettext leaves Plural-Forms unresolved when it finds a plural string,
+	# so fill it in for English. Must run after all extraction steps.
+	sed 's/nplurals=INTEGER; plural=EXPRESSION;/nplurals=2; plural=(n != 1);/' \
+		conf/locale/en/LC_MESSAGES/django.po > conf/locale/en/LC_MESSAGES/django.po.tmp
+	mv conf/locale/en/LC_MESSAGES/django.po.tmp conf/locale/en/LC_MESSAGES/django.po
 
 pull_translations:
 	atlas pull $(ATLAS_OPTIONS) \
