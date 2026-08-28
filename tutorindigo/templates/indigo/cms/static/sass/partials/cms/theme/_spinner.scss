@@ -1,0 +1,60 @@
+@import "wiki-variables";
+
+// Spinner styles for the meta_translations Studio pages.
+//
+// The React bundles already render <Spinner /> while their first API call is in
+// flight, but `.spinner` only ever existed in the LMS theme
+// (lms/static/sass/base/_spinner.scss) and was never imported by the CMS theme.
+// In Studio the markup therefore compiled to five unstyled, zero-height divs and
+// the pages looked blank/dead while `api/v0/versions` and `api/v0/meta_courses/`
+// were loading. Kept identical to the LMS rules so both surfaces match.
+.spinner {
+    --animation-duration: 1000ms;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+
+    .spinner-item {
+        height: 40%;
+        background-color: $theme-blue;
+        opacity: 0.8;
+        width: calc(60px / 13);
+        animation: spinner var(--animation-duration) ease-in-out infinite;
+    }
+
+    .spinner-item:nth-child(2) {
+        animation-delay: calc(var(--animation-duration) / 10);
+    }
+
+    .spinner-item:nth-child(3) {
+        animation-delay: calc(var(--animation-duration) / 10 * 2);
+    }
+
+    .spinner-item:nth-child(4) {
+        animation-delay: calc(var(--animation-duration) / 10 * 3);
+    }
+
+    .spinner-item:nth-child(5) {
+        animation-delay: calc(var(--animation-duration) / 10 * 4);
+    }
+
+    // <Spinner center_in_screen /> emits this class, but it was never defined
+    // anywhere in the repo. `auto` side margins are symmetric, so the theme's
+    // bi-app-sass RTL pass has no physical property to get wrong.
+    &.center-in-screen {
+        margin: 20vh auto;
+    }
+}
+
+@keyframes spinner {
+    25% {
+        transform: scaleY(2);
+    }
+
+    50% {
+        transform: scaleY(1);
+    }
+}
