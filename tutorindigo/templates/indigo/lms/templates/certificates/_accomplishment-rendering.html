@@ -25,7 +25,11 @@ course_mode_class = course_mode if course_mode else ''
                                 <span class="date">${certificate_date_issued}</span>
                                 <strong class="accomplishment-recipient hd-1 emphasized">${accomplishment_copy_name}</strong>
                                 <span class="accomplishment-summary copy copy-lead">${_("has successfully completed")}</span>
-                                <span class="accomplishment-summary copy copy-lead">${_("the")} ${accomplishment_copy_course_name} ${_("program.")}</span>
+                                % if certificate_data and certificate_data.get('course_title'):
+                                    <span class="accomplishment-summary copy copy-lead">${accomplishment_copy_course_name}</span>
+                                % else:
+                                    <span class="accomplishment-summary copy copy-lead">${_('the course "{course_name}".').format(course_name=accomplishment_copy_course_name)}</span>
+                                % endif
 
                                 <span class="accomplishment-course hd-1 emphasized hidden">
                                     <span class="accomplishment-course-name">${accomplishment_copy_course_name}</span>
