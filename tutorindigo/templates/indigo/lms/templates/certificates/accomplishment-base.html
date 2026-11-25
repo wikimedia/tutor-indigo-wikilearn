@@ -41,5 +41,43 @@ course_mode_class = course_mode if course_mode else ''
     %if badge:
         <%include file="_badges-modal.html" />
     %endif
+
+    <script>
+      // (1) Toggle .is-tall for the dynamic 66.7/33.3 vs 62/38 flex ratio.
+      // (2) Set --print-zoom so print scales the whole certificate down to fit
+      //     one A4 landscape page when content would otherwise overflow.
+      (function () {
+        var TALL_THRESHOLD_PX = 874;
+        var A4_LANDSCAPE_WIDTH_PX = 1123;  // 297mm at 96 DPI
+        var A4_LANDSCAPE_HEIGHT_PX = 794;  // 210mm at 96 DPI
+        var cert = document.querySelector('.accomplishment-rendering');
+        if (!cert) { return; }
+
+        var update = function () {
+          cert.classList.toggle('is-tall', cert.offsetHeight > TALL_THRESHOLD_PX);
+          // Measure cert at A4 width (what print will actually use). The LMS
+          // wrapper lets cert be up to ~1570px wide on screen; printing is
+          // locked to 1123px (A4 width) so we need the height at THAT width.
+          var savedWidth = cert.style.width;
+          cert.style.width = A4_LANDSCAPE_WIDTH_PX + 'px';
+          // Force reflow so offsetHeight reflects the new width.
+          void cert.offsetWidth;
+          var printHeight = cert.offsetHeight;
+          cert.style.width = savedWidth;
+          // Scale to fit A4 height. Cap at 1 so short certs stay natural-size
+          // and leave a small gap at the bottom rather than overflowing width.
+          var scale = Math.min(1, A4_LANDSCAPE_HEIGHT_PX / printHeight);
+          cert.style.setProperty('--print-zoom', scale.toFixed(4));
+        };
+
+        update();
+        window.addEventListener('beforeprint', update);
+        if (typeof ResizeObserver !== 'undefined') {
+          new ResizeObserver(update).observe(cert);
+        } else {
+          window.addEventListener('resize', update);
+        }
+      })();
+    </script>
 </body>
 </html>
