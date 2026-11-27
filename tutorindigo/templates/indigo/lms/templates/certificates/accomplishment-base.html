@@ -41,5 +41,71 @@ course_mode_class = course_mode if course_mode else ''
     %if badge:
         <%include file="_badges-modal.html" />
     %endif
+
+    <script>
+      // (1) Toggle .is-tall for the dynamic 66.7/33.3 vs 62/38 flex ratio.
+      // (2) Set --print-zoom so print scales the whole certificate down to fit
+      //     one A4 landscape page when content would otherwise overflow.
+      (function () {
+        var TALL_THRESHOLD_PX = 874;
+        var A4_LANDSCAPE_WIDTH_PX = 1123;  // 297mm at 96 DPI
+        var A4_LANDSCAPE_HEIGHT_PX = 794;  // 210mm at 96 DPI
+        var cert = document.querySelector('.accomplishment-rendering');
+        // The wrapper now contains BOTH the certificate box and the print
+        // footer row (Certificate ID + Date). Zooming the wrapper scales both
+        // together so their horizontal alignment stays locked in print.
+        var certGroup = document.querySelector('.wrapper-accomplishment-rendering');
+        if (!cert || !certGroup) { return; }
+
+        // Reserve ~15mm for the Certificate ID + Date footer row beneath the
+        // cert. Simpler and more reliable than measuring the footer's actual
+        // height (which may be display:none on screen, hard to measure cleanly).
+        var FOOTER_RESERVE_PX = 56;
+
+        var computePrintScale = function () {
+          // Measure the cert at A4 width (what print uses). Zoom scales the
+          // cert so cert_rendered_height + footer_reserve fits one A4 page.
+          var savedWidth = cert.style.width;
+          var savedZoom = certGroup.style.zoom;
+          cert.style.width = A4_LANDSCAPE_WIDTH_PX + 'px';
+          certGroup.style.zoom = '';  // measure unzoomed
+          void cert.offsetWidth;  // force reflow
+          var certHeight = cert.offsetHeight;
+          cert.style.width = savedWidth;
+          certGroup.style.zoom = savedZoom;
+          var available = A4_LANDSCAPE_HEIGHT_PX - FOOTER_RESERVE_PX;
+          return Math.min(1, available / certHeight);
+        };
+
+        var update = function () {
+          cert.classList.toggle('is-tall', cert.offsetHeight > TALL_THRESHOLD_PX);
+        };
+
+        var applyPrintZoom = function () {
+          var scale = computePrintScale();
+          // Set BOTH the CSS variable (for the @media print rule) and the
+          // inline style.zoom (as a belt-and-suspenders fallback in case the
+          // @media rule's cascade is undercut by base theme styles).
+          certGroup.style.setProperty('--print-zoom', scale.toFixed(4));
+          certGroup.style.zoom = scale.toFixed(4);
+        };
+
+        var clearPrintZoom = function () {
+          certGroup.style.zoom = '';
+        };
+
+        update();
+        window.addEventListener('beforeprint', function () {
+          update();
+          applyPrintZoom();
+        });
+        window.addEventListener('afterprint', clearPrintZoom);
+        if (typeof ResizeObserver !== 'undefined') {
+          new ResizeObserver(update).observe(cert);
+        } else {
+          window.addEventListener('resize', update);
+        }
+      })();
+    </script>
 </body>
 </html>
