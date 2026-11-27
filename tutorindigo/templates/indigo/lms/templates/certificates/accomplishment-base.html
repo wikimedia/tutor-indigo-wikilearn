@@ -51,27 +51,55 @@ course_mode_class = course_mode if course_mode else ''
         var A4_LANDSCAPE_WIDTH_PX = 1123;  // 297mm at 96 DPI
         var A4_LANDSCAPE_HEIGHT_PX = 794;  // 210mm at 96 DPI
         var cert = document.querySelector('.accomplishment-rendering');
-        if (!cert) { return; }
+        // The wrapper now contains BOTH the certificate box and the print
+        // footer row (Certificate ID + Date). Zooming the wrapper scales both
+        // together so their horizontal alignment stays locked in print.
+        var certGroup = document.querySelector('.wrapper-accomplishment-rendering');
+        if (!cert || !certGroup) { return; }
+
+        // Reserve ~15mm for the Certificate ID + Date footer row beneath the
+        // cert. Simpler and more reliable than measuring the footer's actual
+        // height (which may be display:none on screen, hard to measure cleanly).
+        var FOOTER_RESERVE_PX = 56;
+
+        var computePrintScale = function () {
+          // Measure the cert at A4 width (what print uses). Zoom scales the
+          // cert so cert_rendered_height + footer_reserve fits one A4 page.
+          var savedWidth = cert.style.width;
+          var savedZoom = certGroup.style.zoom;
+          cert.style.width = A4_LANDSCAPE_WIDTH_PX + 'px';
+          certGroup.style.zoom = '';  // measure unzoomed
+          void cert.offsetWidth;  // force reflow
+          var certHeight = cert.offsetHeight;
+          cert.style.width = savedWidth;
+          certGroup.style.zoom = savedZoom;
+          var available = A4_LANDSCAPE_HEIGHT_PX - FOOTER_RESERVE_PX;
+          return Math.min(1, available / certHeight);
+        };
 
         var update = function () {
           cert.classList.toggle('is-tall', cert.offsetHeight > TALL_THRESHOLD_PX);
-          // Measure cert at A4 width (what print will actually use). The LMS
-          // wrapper lets cert be up to ~1570px wide on screen; printing is
-          // locked to 1123px (A4 width) so we need the height at THAT width.
-          var savedWidth = cert.style.width;
-          cert.style.width = A4_LANDSCAPE_WIDTH_PX + 'px';
-          // Force reflow so offsetHeight reflects the new width.
-          void cert.offsetWidth;
-          var printHeight = cert.offsetHeight;
-          cert.style.width = savedWidth;
-          // Scale to fit A4 height. Cap at 1 so short certs stay natural-size
-          // and leave a small gap at the bottom rather than overflowing width.
-          var scale = Math.min(1, A4_LANDSCAPE_HEIGHT_PX / printHeight);
-          cert.style.setProperty('--print-zoom', scale.toFixed(4));
+        };
+
+        var applyPrintZoom = function () {
+          var scale = computePrintScale();
+          // Set BOTH the CSS variable (for the @media print rule) and the
+          // inline style.zoom (as a belt-and-suspenders fallback in case the
+          // @media rule's cascade is undercut by base theme styles).
+          certGroup.style.setProperty('--print-zoom', scale.toFixed(4));
+          certGroup.style.zoom = scale.toFixed(4);
+        };
+
+        var clearPrintZoom = function () {
+          certGroup.style.zoom = '';
         };
 
         update();
-        window.addEventListener('beforeprint', update);
+        window.addEventListener('beforeprint', function () {
+          update();
+          applyPrintZoom();
+        });
+        window.addEventListener('afterprint', clearPrintZoom);
         if (typeof ResizeObserver !== 'undefined') {
           new ResizeObserver(update).observe(cert);
         } else {

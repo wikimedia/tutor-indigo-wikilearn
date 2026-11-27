@@ -1,0 +1,1 @@
+- [Improvement] Redesign the certificate layout for cross-device and print consistency. Fixes description overflow into the illustration, long titles breaking the layout, inconsistent print/PDF output, signature image stretching, and small-screen collapse. (by @eemaanamir)

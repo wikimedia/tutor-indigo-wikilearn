@@ -74,6 +74,10 @@ course_mode_class = course_mode if course_mode else ''
             </div>
             <img class="certificate-corner" src="${static.url('indigo/images/certificate-corner.png')}" width="100" alt="${platform_name}">
         </div>
+        <div class="print-cert-footer" aria-hidden="true">
+            <span class="print-cert-footer-id">${_("Certificate ID Number:")} ${certificate_id_number}</span>
+            <span class="print-cert-footer-date">${certificate_date_issued}</span>
+        </div>
     </div>
 
     <div class="wrapper-accomplishment-metadata">

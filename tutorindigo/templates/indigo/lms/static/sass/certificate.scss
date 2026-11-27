@@ -65,6 +65,7 @@
   display: flex;
   width: 100%;
   padding: 70px 0 30px 70px;
+  box-sizing: border-box;
   position: relative;
   z-index: 1;
 
@@ -75,17 +76,14 @@
 }
 
 
-// A4 landscape (297 × 210 mm at 96 DPI) is the canonical canvas.
-// Below the min-width we proportionally scale the whole certificate (like
-// shrinking an image) so it still looks like a document instead of a squished
-// layout — the internal layout stays at 1123px, only the visual size shrinks.
-// Print rules override this and lock to true A4 mm dimensions.
+// A4 landscape width (297 mm at 96 DPI) is the canonical canvas width.
+// Height is content-driven — no min or max — so the cert box wraps exactly
+// around its content. The JS `zoom` scales the whole wrapper down so that
+// cert + footer fit inside A4 landscape when printing.
 $certificate-min-width: 1123px;
-$certificate-min-height: 794px;
 
 .accomplishment-rendering {
   min-width: $certificate-min-width;
-  min-height: $certificate-min-height;
   margin: 0 auto;
 
   .layout-accomplishment & {
@@ -385,6 +383,13 @@ $certificate-min-height: 794px;
   display: none !important;
 }
 
+// Print-only footer injected by accomplishment-base.html. Hidden on screen,
+// shown and positioned at the bottom of the printed A4 page by the @media
+// print block below.
+.print-cert-footer {
+  display: none;
+}
+
 // Fit-to-viewport scaling for small screens (tablets, small laptops, phones).
 // `zoom` affects the whole layout box so no trailing whitespace and no scroll.
 // Print has its own @media block below that overrides this with mm dimensions,
@@ -455,18 +460,7 @@ $certificate-min-height: 794px;
     background: #ebe9e2;
   }
 
-  .wrapper-accomplishment-rendering {
-    overflow: visible;
-    margin: 0 !important;
-    padding: 0 !important;
-    max-width: none !important;
-    width: 100% !important;
-  }
-
-  // The certificate body is nested inside wrapper-view / main.accomplishment.
-  // Zero their padding and turn the whole chain into flex centering columns
-  // so the certificate sits vertically centered on the page (whitespace split
-  // evenly top and bottom instead of a single gap at the bottom).
+  // Zero all ancestor padding and center the cert group on the A4 page.
   body,
   .wrapper-view,
   main.accomplishment,
@@ -493,9 +487,8 @@ $certificate-min-height: 794px;
   }
 
   // Hide every LMS chrome element so the certificate is page 1 (not page 2).
+  // The metadata card itself is re-enabled below as a fixed footer.
   .wrapper-header,
-  .wrapper-accomplishment-metadata,
-  .accomplishment-metadata,
   .wrapper-about,
   .wrapper-accomplishment-footer,
   ._accomplishment-footer,
@@ -504,10 +497,27 @@ $certificate-min-height: 794px;
     display: none !important;
   }
 
+  // The wrapper now groups the cert box + its ID/date footer. Zooming the
+  // group (not just the cert) keeps the two visually locked together — same
+  // scale, same horizontal alignment — so the footer always matches the cert
+  // edges on the printed page.
+  .wrapper-accomplishment-rendering {
+    margin: 0 auto !important;
+    padding: 0 !important;
+    width: $certificate-min-width;
+    max-width: none !important;
+    // Let the cert's drop shadow extend past the wrapper box.
+    overflow: visible !important;
+    zoom: var(--print-zoom, 1);
+    break-inside: avoid;
+    page-break-inside: avoid;
+    break-before: avoid;
+    page-break-before: avoid;
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
   .accomplishment-rendering {
-    // Keep the natural A4 canvas dimensions (min-width/min-height from screen
-    // apply). Don't lock a fixed height — the zoom below multiplies with it and
-    // leaves blank bands on the printed page.
     margin: 0 auto;
     padding: 0;
     // Soft drop shadow in print so the cert edges have visual depth against
@@ -517,16 +527,10 @@ $certificate-min-height: 794px;
     // space and .organization-logo-bar sits flush at the bottom edge.
     display: flex;
     flex-direction: column;
-    // Scale the whole certificate to exactly fill A4 landscape in both axes.
-    // --print-zoom is computed in JS before print: min(A4_H/certH, A4_W/certW).
-    zoom: var(--print-zoom, 1);
-    // Keep the entire certificate on one page.
-    break-inside: avoid;
-    page-break-inside: avoid;
-    break-before: avoid;
-    page-break-before: avoid;
-    break-after: avoid;
-    page-break-after: avoid;
+    // Clip any child overflow (side-area title, etc.) at the cert edges so
+    // nothing bleeds past the cert box onto the page margin in print.
+    overflow: hidden !important;
+    position: relative;
 
     .accomplishment-recipient {
       font-size: 1.9rem;
@@ -573,16 +577,50 @@ $certificate-min-height: 794px;
   .accomplishment-rendering .side-area {
     flex: 0 0 33.3%;
     max-width: 33.3%;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  // Keep the "Certificate of Achievement" title strictly inside the side-area
+  // in print. Print renderers may fall back to a wider system font before the
+  // web font (Montserrat, loaded from Google Fonts) is fully substituted —
+  // which pushes the title past the right edge. Shrinking the font + forcing
+  // wrap keeps the title inside the cert bounds regardless.
+  .side-area .accomplishment-orgs-title {
+    font-size: 1.6rem !important;
+    line-height: 1.1;
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    padding: 20px 10px 0 0;
+    box-sizing: border-box;
   }
 
   .back-image {
     max-height: 210mm;
   }
 
+  // Hide the native metadata block entirely in print — we use a dedicated
+  // .print-cert-footer element instead so the output is always exactly
+  // "Certificate ID Number: <id>  <date>" with no extra wrappers.
   .wrapper-accomplishment-metadata,
-  .accomplishment-metadata,
   .wrapper-about {
     display: none !important;
+  }
+
+  // Lives inside .wrapper-accomplishment-rendering, right under the cert box.
+  // Width matches the cert (parent wrapper is A4-width); left/right padding
+  // aligned to typical cert chrome. Scales with the cert via wrapper zoom.
+  .print-cert-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    width: 100%;
+    padding: 4mm 0 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-size: 9pt;
+    color: #333;
   }
 
   .side-area .organization-logo {
